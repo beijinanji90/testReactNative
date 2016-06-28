@@ -1,28 +1,21 @@
 import React,{Component} from 'react';
-import{AppRegistry,Text,Image,View,StyleSheet,AlertIOS} from 'react-native';
+import{AppRegistry,NavigatorIOS,Text,Image,View,StyleSheet,AlertIOS} from 'react-native';
+
+
+var SearchPage = require('./SearchPage');
+var styles = StyleSheet.create({
+	text:{
+		color: 'black',
+		backgroundColor: 'white',
+		fontSize: 30,
+		margin: 80
+	},
+  container:{
+    flex: 1
+  }
+});
 
 var AttributeToggler = React.createClass({
-  getInitialState: function() {
-    return {fontWeight: 'bold', fontSize: 15};
-  },
-  toggleWeight: function() {
-    AlertIOS.alert(
-      null,
-      null,
-      [
-        {text: 'Foo', onPress: () => console.log('Foo Pressed!')},
-              {text: 'Bar', onPress: () => console.log('Bar Pressed!')},
-      ]
-    )
-    // this.setState({
-    //   fontWeight: this.state.fontWeight === 'bold' ? 'normal' : 'bold'
-    // });
-  },
-  increaseSize: function() {
-    this.setState({
-      fontSize: this.state.fontSize + 1
-    });
-  },
   render() {
     return (
      <Text numerOfLines={1} style={{fontFamily:'Verdana',textDecorationLine:'underline',fontWeight: 'bold',textAlign:'left',marginTop:100,backgroundColor: '#ffaaaa',marginLeft:20,marginRight:20}} onPress={() => AlertIOS.alert(
@@ -33,45 +26,54 @@ var AttributeToggler = React.createClass({
               {text: 'Bar', onPress: () => console.log('Bar Pressed!')},
             ]
           )}>
-        I am bold very much lost haha
+        sldjflajsdlfjjdfjasdl
       <Text numerOfLines={1} style={{color: 'red',fontSize:30}} onPress={() => console.log('and red被点击了')}>
         and red
       </Text>
     </Text>,
     
-    <Text style={{marginTop:100}}>
-     <Text>First part and </Text>
-     <Text>second part</Text>
-    </Text>,
-    
-    <View style={{marginTop:100}}>
-     <Text>First part and </Text>
-     <Text>second part</Text>
+    <View style={{backgroundColor:'red',marginLeft:0,marginRight:0,marginTop:0,marginBottom:20}}>
+        <Image source={require("./ios/img/check.png")} blurRadius={10} style={{top:100,left:100,width:100,height:100,borderRadius:50}} onLoad={() => console.log('开始加载了')} onProgress={(loader,total) => console.log('百分比')}/>
     </View>
-    ),
-    
-    <Text style={{fontWeight: 'bold',marginTop:100}}>
-      I am bold
-      <Text style={{color: 'red'}} onPress={()=>console.log('lst')}>
-      and red
-    </Text>
-</Text>
-
-  }
+    )}
 });
 
-class App extends Component {
-  render() {
-    return (
-     <Text style={{fontWeight: 'bold',textAlign:'center',marginTop:100}}>
-        I am bold
-      <Text style={{color: 'red',fontSize:30}}>
-        and red
-      </Text>
-    </Text>
+class HelloWorld extends React.Component{
+	render(){
+		return(
+			<Text style={styles.text}>
+			 Hello world
+			</Text>
+		)
+	}
+}
+
+class PropertyFinderApp extends Component{
+  render(){
+    return(
+      <NavigatorIOS style={styles.container} 
+        initialRoute={{
+          title: 'Property Finder',
+          component: SearchPage,
+        }}/> 
     );
   }
 }
+
+AppRegistry.registerComponent('HelloWorld', ()=> PropertyFinderApp);
+
+// class App extends Component {
+//   render() {
+//     return (
+//      <Text style={{fontWeight: 'bold',textAlign:'center',marginTop:100}}>
+//         I am bold
+//       <Text style={{color: 'red',fontSize:30}}>
+//         sb
+//       </Text>
+//     </Text>
+//     );
+//   }
+// }
 
 // const App = () =>{
 //   return(
@@ -80,7 +82,7 @@ class App extends Component {
 //       <Text>Hello!</Text>
 //     </View>,
     
-//     <Image source={require("./ios/img/check.png")} style={{top:100,left:100,width:60,height:60,backgroundColor:'transparent'}}/>,
+    // <Image source={require("./ios/img/check.png")} style={{top:100,left:100,width:60,height:60,backgroundColor:'transparent'}}/>,
     
 //     <Image source={{url:'http://facebook.github.io/react/img/logo_og.png'}} style={{top:100,left:100,width:60,height:60,backgroundColor:'transparent'}}/>,
     
@@ -93,7 +95,7 @@ class App extends Component {
 //   )
 // }
 
-AppRegistry.registerComponent('HelloWorld', ()=> AttributeToggler);
+
 
 // import React, { Component } from 'react';
 // import {
