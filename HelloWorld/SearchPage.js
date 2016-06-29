@@ -10,6 +10,8 @@ import{
     Image,
 } from 'react-native';
 
+var SearchResults = require('./SearchResults');
+
 var styles = StyleSheet.create({
    description:{
        marginBottom:20,
@@ -98,8 +100,19 @@ class SearchPage extends Component{
     
     _handleResponse(respone){
         this.setState({isLoading:false,message:''});
-        if(respone.application_response_code.substr(0,1) === '1'){
+        if(respone.application_response_code.substr(0,1) === '1')
+        {
+              var querystring = Object.keys(respone.listings)
+             .map(key => key + '=' + encodeURIComponent(respone.listings[key]))
+             .join('&');
+            console.log('Detail data:' + querystring);
             console.log('Properties found:' + respone.listings.length);
+            
+            this.props.navigator.push({
+                title: 'Results',
+                component: SearchResults,
+                passProps:{listings: respone.listings}
+            });
         }
         else
         {
@@ -122,8 +135,8 @@ class SearchPage extends Component{
     }
     
     onSearchPressed(){
-        var query = urlForQueryAndPage('place_name',this.state.searchString,
-        this._executeQuery(query));
+        var query = urlForQueryAndPage('place_name',this.state.searchString,1);
+        this._executeQuery(query);
         console.log(query);
     }
     
